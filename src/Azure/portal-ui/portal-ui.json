@@ -1,75 +1,85 @@
 {
-	"$schema": "https://schema.management.azure.com/schemas/2021-09-09/uiFormDefinition.schema.json",
-	"view": {
-		"kind": "Form",
-		"properties": {
-			"title": "AVD Copilot Azure Components Deployment",
-			"steps": [
-				{
-					"name": "basics",
-					"label": "Basics",
-					"elements": [
-						{
-							"name": "resourceScope",
-							"type": "Microsoft.Common.ResourceScope",
-							"location": {
-								"resourceTypes": []
-							}
-						},
-						{
-							"name": "ManagedIdentityName",
-							"type": "Microsoft.Common.TextBox",
-							"label": "Managed Identity Name",
-							"placeholder": "",
-							"defaultValue": "id-AVDCopilot-01",
-							"toolTip": "Use only allowed characters",
-							"constraints": {
-								"required": true,
-								"regex": "^[a-zA-Z0-9-]{1,128}$",
-								"validationMessage": "Only alphanumeric characters and hyphens are allowed, 1-128 characters long. Must start with a letter, end with a letter or number, and not contain consecutive hyphens."
-							},
-							"visible": true
-						},
-						{
-							"name": "PermissionInfo",
-							"type": "Microsoft.Common.InfoBox",
-							"visible": true,
-							"options": {
-								"style": "Info",
-								"text": "After deployment, you must assign this managed identity the role 'Virtual Desktop Contributor' against the subscription(s) or Management Groups where there are AVD Host Pools. This allows the identity to query for user sessions and remove them."
-							}
-						},
-						{
-							"name": "GetUserSessionLogicAppName",
-							"type": "Microsoft.Common.TextBox",
-							"label": "Get User Session Logic App Name",
-							"placeholder": "",
-							"defaultValue": "logic-AVDGetUserSession-01",
-							"toolTip": "Use only allowed characters",
-							"constraints": {
-								"required": true,
-								"regex": "^[a-z0-9A-Z]{1,80}$",
-								"validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-80 characters long."
-							},
-							"visible": true
-						},
-						{
-							"name": "RemoveUserSessionLogicAppName",
-							"type": "Microsoft.Common.TextBox",
-							"label": "Remove User Session Logic App Name",
-							"placeholder": "",
-							"defaultValue": "logic-AVDRemoveUserSession-01",
-							"toolTip": "Use only allowed characters",
-							"constraints": {
-								"required": true,
-								"regex": "^[a-z0-9A-Z]{1,80}$",
-								"validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-80 characters long."
-							},
-							"visible": true
-						}
-					]
-				}
-			]
-		}
-	}
+    "$schema": "https://schema.management.azure.com/schemas/2021-09-09/uiFormDefinition.schema.json",
+    "view": {
+        "kind": "Form",
+        "properties": {
+            "title": "AVD Copilot Azure Components Deployment",
+            "steps": [
+                {
+                    "name": "basics",
+                    "label": "Basics",
+                    "elements": [
+                        {
+                            "name": "resourceScope",
+                            "type": "Microsoft.Common.ResourceScope",
+                            "location": {
+                                "resourceTypes": []
+                            }
+                        },
+                        {
+                            "name": "ManagedIdentityName",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Managed Identity Name",
+                            "placeholder": "",
+                            "defaultValue": "id-AVDCopilot-01",
+                            "toolTip": "Use only allowed characters",
+                            "constraints": {
+                                "required": true,
+                                "regex": "^[a-zA-Z0-9-]{1,128}$",
+                                "validationMessage": "Only alphanumeric characters and hyphens are allowed, 1-128 characters long. Must start with a letter, end with a letter or number, and not contain consecutive hyphens."
+                            },
+                            "visible": true
+                        },
+                        {
+                            "name": "PermissionInfo",
+                            "type": "Microsoft.Common.InfoBox",
+                            "visible": true,
+                            "options": {
+                                "style": "Info",
+                                "text": "After deployment, you must assign this managed identity the role 'Virtual Desktop Contributor' against the subscription(s) or Management Groups where there are AVD Host Pools. This allows the identity to query for user sessions and remove them."
+                            }
+                        },
+                        {
+                            "name": "GetUserSessionLogicAppName",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Get User Session Logic App Name",
+                            "placeholder": "",
+                            "defaultValue": "logic-AVDGetUserSession-01",
+                            "toolTip": "Use only allowed characters",
+                            "constraints": {
+                                "required": true,
+                                "regex": "^[a-z0-9A-Z]{1,80}$",
+                                "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-80 characters long."
+                            },
+                            "visible": true
+                        },
+                        {
+                            "name": "RemoveUserSessionLogicAppName",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Remove User Session Logic App Name",
+                            "placeholder": "",
+                            "defaultValue": "logic-AVDRemoveUserSession-01",
+                            "toolTip": "Use only allowed characters",
+                            "constraints": {
+                                "required": true,
+                                "regex": "^[a-z0-9A-Z]{1,80}$",
+                                "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-80 characters long."
+                            },
+                            "visible": true
+                        }
+                    ]
+                }
+            ]
+        },
+        "outputs": {
+            "kind": "ResourceGroup",
+            "resourceGroupId": "[steps('basics').resourceScope.resourceGroup.id]",
+            "location": "[steps('basics').resourceScope.location.name]",
+            "parameters": {
+                "ManagedIdentityName": "[steps('basics').ManagedIdentityName]",
+                "GetUserSessionLogicAppName": "[steps('basics').GetUserSessionLogicAppName]",
+                "RemoveUserSessionLogicAppName": "[steps('basics').RemoveUserSessionLogicAppName]"
+            }
+        }
+    }
 }
