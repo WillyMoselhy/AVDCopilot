@@ -1,6 +1,6 @@
 ### PURPOSE
-The AVDCopilot allows you to do some stuff with your AVD infrastrucure, all the action are triggered using natural language
-The infrastucture is based on Copilot Studio, Power Automate and Logic App.
+The AVDCopilot allows you to do some stuff with your AVD infrastructure, all the action are triggered using natural language
+The infrastructure is based on Copilot Studio, Power Automate and Logic App.
 
 ### IMPLEMENTATION
 
